@@ -1,0 +1,105 @@
+/* General styling for the job container */
+.job-container {
+    padding: 20px;
+    margin: 0;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Styling each job box */
+.job-item {
+    background-color: #fff; /* White background */
+    padding: 20px;
+    border: 1px solid #ccc; /* Light border around the box */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow around the box */
+    margin-bottom: 20px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.job-item:hover {
+    transform: translateY(-5px); /* Slight lift effect on hover */
+}
+
+/* Title and content */
+.job-item h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.job-item p {
+    font-size: 1rem;
+    margin: 5px 0;
+    color: #555;
+}
+
+/* .job-item i {
+    margin-right: 10px;
+    color: black; /* Icon color */
+    /* font-size: 1.2rem; */
+/* } */ */
+.job-item i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+    color: black; /* Ensuring icons have a black color */
+}
+/* Styling the buttons */
+.job-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    
+}
+
+.job-actions button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.job-actions button.view-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.job-actions button.view-btn:hover {
+    background-color: #218838;
+}
+
+.job-actions button.apply-btn {
+    background-color: #007BFF;
+    color: white;
+}
+
+.job-actions button.apply-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Empty state */
+.job-container p {
+    font-size: 1.2rem;
+    color: #888;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .job-container {
+        padding: 15px;
+    }
+
+    .job-item h2 {
+        font-size: 1.25rem; /* Slightly smaller font size for smaller screens */
+    }
+    
+    .job-item p {
+        font-size: 0.9rem; /* Smaller text for mobile devices */
+    }
+}

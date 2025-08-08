@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="{% static 'css/loginsignup.css' %}">
+  <style>
+    .alert {
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid transparent;
+      border-radius: 5px;
+    }
+    .alert.success {
+      color: #155724;
+      background-color: #d4edda;
+      border-color: #c3e6cb;
+    }
+    .alert.error {
+      color: #721c24;
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Log In</h2>
+
+    <!-- Success and Error Messages -->
+    {% if success_message %}
+    <div class="alert success">
+      {{ success_message }}
+    </div>
+    {% endif %}
+
+    {% if error_message %}
+    <div class="alert error">
+      {{ error_message }}
+    </div>
+    {% endif %}
+
+    <form method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+      </div>
+      <button type="submit">Log In</button>
+      <div class="form-group">
+        <span class="toggle-link">Don't have an account?</span>
+        <a class="toggle-link" href="{% url 'signup' %}">Sign up</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- Inline CSS for Alert Styles -->
+  
+</body>
+</html>

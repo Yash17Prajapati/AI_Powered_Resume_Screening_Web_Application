@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Shortlisted Candidate List</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        .container {
+            width: 95%;
+            margin: auto;
+        }
+        
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .paddingcont{
+            padding: 2rem;
+        }
+        /* Table styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        
+        td {
+            color: #333;
+        }
+        
+        /* Button styles */
+        button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        /* View Details Button */
+        .view-btn {
+            background-color: #17a2b8;
+            color: white;
+        }
+        .view-btn1{
+            background-color: rgb(250, 187, 70);
+            color: white;
+        }
+        .view-btn1:hover{
+            background-color: rgb(245, 170, 30);
+        }
+        .view-btn:hover {
+            background-color: #138496;
+        }
+        
+        /* Start AI Screening Button */
+        .start-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .start-btn:hover {
+            background-color: #218838;
+        }
+        
+        /* Re-evaluate Button */
+        .re-evaluate-btn {
+            background-color: #ffc107;
+            color: black;
+        }
+        
+        .re-evaluate-btn:hover {
+            background-color: #e0a800;
+        }
+        
+        /* AI Screening Result Button */
+        .result-btn {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .result-btn:hover {
+            background-color: #5a6268;
+        }
+        
+        /* Shortlist Button */
+        .shortlist-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .shortlist-btn:hover {
+            background-color: #c82333;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 50%;
+            box-shadow: 0px 0px 10px gray;
+        }
+        
+        .close {
+            float: right;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .disabled-btn {
+            opacity: 0.5;              /* Blurs the button visually */
+            cursor: not-allowed;       /* Shows a "not allowed" cursor */
+            pointer-events: none;      /* Disables hover/click events */
+            box-shadow: none;          /* Removes any hover shadow */
+            background-color: #ccc;    /* Optional: grays out the button */
+            color: #666;               /* Optional: dull text color */
+        }
+        
+        /* Optional - if you have a hover style, override it */
+        .disabled-btn:hover {
+            background-color: #ccc;
+            color: #666;
+            box-shadow: none;
+        }
+        
+        
+        /* Badge styles */
+        .badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .badge.high {
+            background-color: #28a745;
+        }
+        
+        .badge.medium {
+            background-color: #ffc107;
+            color: #000;
+        }
+        
+        .badge.low {
+            background-color: #dc3545;
+        }
+        
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            table {
+                font-size: 12px;
+            }
+            
+            th, td {
+                padding: 8px;
+            }
+        
+            button {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1><a href="{% url 'recruiter:recruiter_dashboard' %}" style="text-decoration: none;color:white">Recruiter Dashboard</a></h1>
+        <ul>
+            <li><a href="{% url 'recruiter:job_posted' %}">Job Posted</a></li>
+            <li><a href="{% url 'recruiter:post_job' %}">Post new jobs</a></li>
+            <li><a href="{% url 'recruiter:result_jobs' %}">Results</a></li>
+        </ul>
+    </nav>
+    <div class="paddingcont">
+        <div class="container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Job ID</th>
+                        <th>Candidate Email</th>
+                        <th>Candidate Score</th>
+                        <th>Match Type</th>
+                        <th>View Document</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+            {% for candidate in result.high_match %}
+            <tr>
+                <td>{{ result.job_id }}</td>
+                <td>{{ candidate.email }}</td>
+                <td>{{ candidate.score }}</td>
+                <td><span class="badge high">High</span></td>
+                <td>
+                    <a href="{% url 'recruiter:view_resume' job_id=result.job_id doc_id=candidate.resume_id %}" >View Resume</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+            {% for candidate in result.medium_match %}
+            <tr>
+                <td>{{ result.job_id }}</td>
+                <td>{{ candidate.email }}</td>
+                <td>{{ candidate.score }}</td>
+                <td><span class="badge medium">Medium</span></td>
+                <td>
+                    <a href="{% url 'recruiter:view_resume' job_id=result.job_id doc_id=candidate.resume_id %}" >View Resume</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+            {% for candidate in result.low_match %}
+            <tr>
+                <td>{{ result.job_id }}</td>
+                <td>{{ candidate.email }}</td>
+                <td>{{ candidate.score }}</td>
+                <td><span class="badge low">Low</span></td>
+                <td>
+                    <a href="{% url 'recruiter:document_details' job_id=result.job_id doc_id=candidate.resume_id %}" >View Resume</a>
+                </td>
+            </tr>
+            {% endfor %}
+        {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+    <footer class="footer">
+        <p>&copy; 2024 Recruiter Dashboard. All rights reserved.</p>
+    </footer>
+</body>
+</html>

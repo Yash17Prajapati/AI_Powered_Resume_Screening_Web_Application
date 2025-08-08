@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View_applicants</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        
+        .table-container {
+            width: 80%;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin: 3rem auto;
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        thead {
+            background-color: #007bff;
+            color: white;
+            
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        /* View Document Link Styling */
+        .view-link {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .view-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1><a href="{% url 'recruiter:recruiter_dashboard' %}" style="text-decoration: none; color:white">Recruiter Dashboard</a></h1>
+        <ul>
+            <li><a href="{% url 'recruiter:job_posted' %}">Job Posted</a></li>
+            <li><a href="{% url 'recruiter:post_job' %}">Post new jobs</a></li>
+            <li><a href="{% url 'recruiter:result_jobs' %}">Results</a></li>
+        </ul>
+    </nav>
+    <div class="table-container">
+        <p>Total Applications Received for this Job Opening: <strong>{{ count }}</strong></p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Applied On</th>
+                    <th>Applied to Other Jobs</th>
+                    <th>Document Uploaded</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                <tr>
+                    <td>{{ result.user_name }}</td>
+                    <td>{{ result.user_email }}</td>
+                    <td>{{ result.Applied_on }}</td>
+                    <td>{{ result.Additional_job_applications }}</td>
+                    <td><a href="{% url 'recruiter:document_details' job_id=result.job_id doc_id=result.Document_uploaded %}" class="view-link">View Document</a></td>
+                </tr>
+                
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Recruiter Dashboard. All rights reserved.</p>
+    </footer>
+</body>
+</html>

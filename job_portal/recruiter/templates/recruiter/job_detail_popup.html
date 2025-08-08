@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/job_details_recruiter.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    
+</head>
+<body>
+    <nav class="navbar">
+        <h1><a href="{% url 'recruiter:recruiter_dashboard' %}" style="text-decoration: none;color:white">Recruiter Dashboard</a></h1>
+        <ul>
+            <li><a href="{% url 'recruiter:job_posted' %}">Job Posted</a></li>
+            <li><a href="{% url 'recruiter:post_job' %}">Post new jobs</a></li>
+            <li><a href="{% url 'recruiter:result_jobs' %}">Results</a></li>
+        </ul>
+    </nav>
+    <div class="job-container">
+        <!-- Job Last Updated Date -->
+        {% if job_data.Last_edited %}
+        <div class="job-updated-date">Last Updated on : 
+            {{ job_data.Last_edited }}  <!-- This will show the last updated date -->
+        </div>
+        {% else %}
+        <div class="job-updated-date" style="display:none">Last Updated on : 
+            {{ job_data.Last_edited }}  <!-- This will show the last updated date -->
+        </div>
+        {% endif %}
+
+        
+    
+        <!-- Job Details -->
+        <div class="job-details">
+            <!-- Close Button -->
+            <button class="close-btn" onclick="location.href='{% url 'recruiter:result_jobs' %}'">X</button>
+    
+            <!-- Job Title and Icons -->
+            <h2>{{ job_data.Job_title }}</h2>
+
+        <!-- Job Description -->
+            <p><i class="fas fa-info-circle"></i> <strong>Description :</strong> {{ job_data.Job_description }}</p>
+
+        <!-- Company Name -->
+            <p><i class="fas fa-building"></i> <strong>Company :</strong> {{ job_data.Company_name }}</p>
+
+        <!-- Job Location -->
+            <p><i class="fas fa-map-marker-alt"></i> <strong>Location :</strong> {{ job_data.Job_location }}</p>
+
+        <!-- Employment Type -->
+            <p><i class="fas fa-briefcase"></i> <strong>Employment Type :</strong> {{ job_data.Employment_type }}</p>
+
+        <!-- Experience Level -->
+            <p><i class="fas fa-user-tie"></i> <strong>Experience Level :</strong> {{ job_data.Experience_level }}</p>
+
+        <!-- Salary Range -->
+            <p><i class="fas fa-dollar-sign"></i> <strong>Salary Range :</strong> {{ job_data.Salary_range }}</p>
+
+        <!-- Skills Required -->
+            <p><i class="fas fa-laptop-code"></i> <strong>Skills Required :</strong> {{ job_data.Skill_required }}</p>
+
+        <!-- Education Qualification -->
+            <p><i class="fas fa-graduation-cap"></i> <strong>Education Qualification:</strong> {{ job_data.Education_qualify }}</p>
+
+        <!-- Application Deadline -->
+            <p><i class="fas fa-calendar-alt"></i> <strong>Application Deadline:</strong> {{ job_data.Application_deadline }}</p>
+
+        <!-- Job Category -->
+            <p><i class="fas fa-tags"></i> <strong>Job Category :</strong> {{ job_data.Job_category }}</p>
+
+        <!-- Vacancy -->
+            <p><i class="fas fa-users"></i> <strong>Vacancy :</strong> {{ job_data.Vacancy }}</p>
+
+        <!-- Contact Info -->
+            <p><i class="fas fa-envelope"></i> <strong>Contact Info :</strong> <a href="mailto:{{ job_data.Contact_info }}">{{ job_data.Contact_info }}</a></p>
+
+        <!-- Posted Via Email -->
+            <p><i class="fas fa-envelope-square"></i> <strong>Posted via Email:</strong> <a href="mailto:{{ job_data.Posted_via_email }}">{{ job_data.Posted_via_email }}</a></p>
+
+        <!-- Job Post Date -->
+            <p><i class="fas fa-calendar-day"></i> <strong>Job Post Date :</strong> {{ job_data.Job_post_date }}</p>
+
+        </div>
+    </div>
+    
+    <footer class="footer">
+        <p>&copy; 2024 Recruiter Dashboard. All rights reserved.</p>
+    </footer>
+</body>
+</html>

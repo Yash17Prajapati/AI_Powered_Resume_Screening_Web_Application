@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify</title>
+    <link rel="stylesheet" href="{% static 'css/verify.css' %}">
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <label>Enter OTP:</label>
+        <span>An Otp is sent to your email:</span>
+        <input type="text" name="otp" required><br>
+        <button type="submit">Verify OTP</button>
+    </form>
+    
+</body>
+</html>

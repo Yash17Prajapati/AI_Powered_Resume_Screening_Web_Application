@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'css/loginsignup.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 0.5rem 0;
+            width: 100%;
+            margin-top: auto; /* Push footer to the bottom after content */
+        }
+        
+        
+        .user-iframe {
+            width: 100%;
+            {% comment %} height: 300px; {% endcomment %}
+            border: 2px solid black;
+            margin-top: 10px;
+        }
+        
+        /* Table Styles */
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+        
+        .user-table th, .user-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .user-table th {
+            background-color: #f4f4f4;
+        }
+        
+        /* Message Button */
+        .message-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        
+        /* Excel File Icon */
+        .excel-icon {
+            font-size: 22px;
+            text-decoration: none;
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Table Headers */
+        th {
+            background: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        /* Table Rows */
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        /* Hover Effect */
+        tr:hover {
+            background: #f1f1f1;
+        }
+        
+        /* Icons Styling */
+        .icon {
+            font-size: 18px;
+            cursor: pointer;
+            color: #007bff;
+            transition: 0.3s;
+        }
+        
+        .icon:hover {
+            color: #0056b3;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            table {
+                font-size: 14px;
+            }
+        
+            .icon {
+                font-size: 16px;
+            }
+        }
+        .iframe-container {
+            width: 100%;
+            height: 100vh;
+            border: none;
+            overflow: hidden; /* Hide the iframe scrollbar */
+        }
+        
+        /* Table Container with Scrollable Content */
+        .table-container {
+            max-height: 400px; /* Adjust based on need */
+            overflow-y: auto; /* Enables scrolling for table content */
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            background: #fff;
+        }
+        
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        th {
+            background: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+        }
+        
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        /* Scrollbar Styling */
+        .table-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .table-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .iframe-container {
+            width: 100%;
+            height: 100vh;
+            border: none;
+            overflow: hidden; /* Hide iframe scrollbar */
+        }
+        
+        /* Table Wrapper */
+        .table-wrapper {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Fix Table Header */
+        .table-wrapper thead {
+            position: sticky;
+            top: 0;
+            background: #2c3e50; /* Dark background for header */
+            color: white;
+            z-index: 100;
+        }
+        
+        /* Header Row */
+        .table-wrapper thead tr {
+            display: flex;
+            width: 100%;
+        }
+        
+        /* Header Cells */
+        .table-wrapper th {
+            flex: 1;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        /* Table Body - This Will Scroll */
+        .table-body {
+            max-height: 400px; /* Adjust height */
+            overflow-y: auto;
+        }
+        
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        /* Table Rows */
+        tr {
+            display: flex;
+        }
+        
+        /* Table Cells */
+        td {
+            flex: 1;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        /* Scrollbar Styling */
+        .table-body::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .table-body::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        
+        .table-body::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        /* Table Wrapper */
+.table-wrapper {
+    width: 100%;
+    max-width: 900px; /* Adjust width as needed */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Fix Table Header */
+.table-wrapper thead {
+    position: sticky;
+    top: 0;
+    background: #2c3e50; /* Dark background for header */
+    color: white;
+    z-index: 10;
+}
+
+/* Header Row */
+.table-wrapper thead tr {
+    display: flex;
+    width: 100%;
+}
+
+/* Header Cells */
+.table-wrapper th {
+    flex: 1;
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Table Body (Scrollable) */
+.table-body {
+    max-height: 300px; /* Adjust height */
+    overflow-y: auto;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+/* Table Rows */
+tr {
+    display: flex;
+}
+
+/* Table Cells */
+td, th {
+    flex: 1;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Scrollbar Styling */
+.table-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-body::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.table-body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+/* Wrapper */
+{% comment %} .table-container {
+    width: 100%;
+    max-width: 900px; /* Adjust width */
+    height: 300px; /* Adjust height */
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    position: relative;
+} {% endcomment %}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+/* Sticky Header */
+thead {
+    position: sticky;
+    top: 0;
+    background: #2c3e50; /* Dark header background */
+    color: white;
+    z-index: 10;
+}
+
+/* Header Row */
+thead tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Table Body */
+tbody {
+    display: block;
+    overflow-y: auto;
+    max-height: 250px; /* Adjust height */
+}
+
+/* Table Rows */
+tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+/* Header & Data Cells */
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    word-wrap: break-word;
+}
+
+/* Scrollbar */
+{% comment %} .table-container::-webkit-scrollbar {
+    width: 8px;
+} {% endcomment %}
+
+{% comment %} .table-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+} {% endcomment %}
+
+{% comment %} .table-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+} {% endcomment %}
+
+    </style>
+</head>
+<body>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align: center;">Username</th>
+                    <th style="text-align: center;">Email</th>
+                    <th style="text-align: center;">Send Message</th>
+                    <th style="text-align: center;">Total Job Applications</th>
+                    <th style="text-align: center;">Excel File</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center;">JaneSmith</td>
+                    <td style="text-align: center;">jane@example.com</td>
+                    <td style="text-align: center;"><i class="icon fas fa-paper-plane"></i></td>
+                    <td style="text-align: center;">20</td>
+                    <td style="text-align: center;"><i class="icon fas fa-book"></i></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">JaneSmith</td>
+                    <td style="text-align: center;">jane@example.com</td>
+                    <td style="text-align: center;"><i class="icon fas fa-paper-plane"></i></td>
+                    <td style="text-align: center;">20</td>
+                    <td style="text-align: center;"><i class="icon fas fa-book"></i></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">JaneSmith</td>
+                    <td style="text-align: center;">jane@example.com</td>
+                    <td style="text-align: center;"><i class="icon fas fa-paper-plane"></i></td>
+                    <td style="text-align: center;">20</td>
+                    <td style="text-align: center;"><i class="icon fas fa-book"></i></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">JaneSmith</td>
+                    <td style="text-align: center;">jane@example.com</td>
+                    <td style="text-align: center;"><i class="icon fas fa-paper-plane"></i></td>
+                    <td style="text-align: center;">20</td>
+                    <td style="text-align: center;"><i class="icon fas fa-book"></i></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">JaneSmith</td>
+                    <td style="text-align: center;">jane@example.com</td>
+                    <td style="text-align: center;"><i class="icon fas fa-paper-plane"></i></td>
+                    <td style="text-align: center;">20</td>
+                    <td style="text-align: center;"><i class="icon fas fa-book"></i></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">JaneSmith</td>
+                    <td style="text-align: center;">jane@example.com</td>
+                    <td style="text-align: center;"><i class="icon fas fa-paper-plane"></i></td>
+                    <td style="text-align: center;">20</td>
+                    <td style="text-align: center;"><i class="icon fas fa-book"></i></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">JaneSmith</td>
+                    <td style="text-align: center;">jane@example.com</td>
+                    <td style="text-align: center;"><i class="icon fas fa-paper-plane"></i></td>
+                    <td style="text-align: center;">20</td>
+                    <td style="text-align: center;"><i class="icon fas fa-book"></i></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">JaneSmith</td>
+                    <td style="text-align: center;">jane@example.com</td>
+                    <td style="text-align: center;"><i class="icon fas fa-paper-plane"></i></td>
+                    <td style="text-align: center;">20</td>
+                    <td style="text-align: center;"><i class="icon fas fa-book"></i></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">JaneSmith</td>
+                    <td style="text-align: center;">jane@example.com</td>
+                    <td style="text-align: center;"><i class="icon fas fa-paper-plane"></i></td>
+                    <td style="text-align: center;">20</td>
+                    <td style="text-align: center;"><i class="icon fas fa-book"></i></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">JaneSmith</td>
+                    <td style="text-align: center;">jane@example.com</td>
+                    <td style="text-align: center;"><i class="icon fas fa-paper-plane"></i></td>
+                    <td style="text-align: center;">20</td>
+                    <td style="text-align: center;"><i class="icon fas fa-book"></i></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">JaneSmith</td>
+                    <td style="text-align: center;">jane@example.com</td>
+                    <td style="text-align: center;"><i class="icon fas fa-paper-plane"></i></td>
+                    <td style="text-align: center;">20</td>
+                    <td style="text-align: center;"><i class="icon fas fa-book"></i></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">JaneSmith</td>
+                    <td style="text-align: center;">jane@example.com</td>
+                    <td style="text-align: center;"><i class="icon fas fa-paper-plane"></i></td>
+                    <td style="text-align: center;">20</td>
+                    <td style="text-align: center;"><i class="icon fas fa-book"></i></td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">JaneSmith</td>
+                    <td style="text-align: center;">jane@example.com</td>
+                    <td style="text-align: center;"><i class="icon fas fa-paper-plane"></i></td>
+                    <td style="text-align: center;">20</td>
+                    <td style="text-align: center;"><i class="icon fas fa-book"></i></td>
+                </tr>
+                <!-- Add More Rows -->
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+</html>

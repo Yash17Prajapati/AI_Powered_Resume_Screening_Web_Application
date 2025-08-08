@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+    <link rel="stylesheet" href="{% static 'css/applyform.css' %}">
+    <style>
+        .hidden {
+            display: none;
+        }
+        .cta-button{
+            text-decoration: none;
+        }
+        .cta-button:hover{
+            text-decoration: underline;
+        }
+        #user_app_profile{
+            text-decoration: none;
+        }
+        #user_app_profile:hover{
+            text-decoration: underline;
+        }
+        #resume_upload{
+            font-size: smaller;
+            color: red;
+        }
+        .application-status {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .application-status h2 {
+            font-size: 24px;
+            color: #4CAF50;
+        }
+        
+        .application-status p {
+            font-size: 18px;
+            color: #333;
+        }
+        
+        .back-to-jobs-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        
+        .back-to-jobs-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1><a href="{% url 'user:user_dashboard' %}" style="text-decoration: none;color:white">User Dashboard</a></h1>
+        <ul>
+            <li><a href="{% url 'user:job_list' %}">Job Listings</a></li>
+            <li><a href="{% url 'user:applied' %}">My Applications</a></li>
+        </ul>
+    </nav>
+    {% if job_apply_details %}
+    <div class="application-status">
+        <h2>🎉 Application Submitted!</h2>
+        <p>✅ You have successfully applied to this job post. Good luck! 🍀</p>
+        <a href="{% url 'user:job_list' %}" class="back-to-jobs-btn">🔙 Back to Job Listings</a>
+    </div>
+    {% else %}
+    <div class="form-container">
+        <form method="post" action="{% url 'user:apply_job' job_id=job_apply_id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- Upload Resume Section -->
+            <div id="upload-resume-section">
+                <div class="form-group">
+                    <label for="resume"><i class="fas fa-file-upload"></i> Upload Your Resume</label>
+                    <p id="resume_upload">* Please upload your resume in .pdf format</p>
+                    <input type="file" name="file" id="resume" accept=".pdf" required>
+                </div>
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </div>            
+        </form>
+    </div>
+    {% endif %}
+    <footer class="footer">
+        <p>&copy; 2024 User Dashboard. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,65 @@
+/* verify.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* Light blue background for a pleasant appearance */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+form {
+    background-color: #ffffff; /* White background for the form */
+    border: 1px solid #dcdcdc; /* Light gray border */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    text-align: center;
+    width: 300px;
+}
+
+label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+    color: #333333; /* Dark gray text color */
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #dcdcdc; /* Light gray border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4caf50; /* Green background for the button */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+}
+
+button:active {
+    background-color: #3e8e41; /* Even darker green on click */
+}
+
+@media (max-width: 400px) {
+    form {
+        width: 90%; /* Adjust form width for smaller screens */
+    }
+}

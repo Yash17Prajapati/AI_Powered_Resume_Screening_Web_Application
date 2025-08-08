@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings</title>
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+    <link rel="stylesheet" href="{% static 'css/job_list.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        .search-functionality{
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            /* border: 2px solid red; */
+            width: 70%;
+            font-size: 1.075rem;
+            /* cursor: pointer; */
+            margin-right: 0.15rem;
+        }
+        .search-button{
+            padding: 0.7552rem 1rem;
+            border-radius: 10px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+        .search-button:hover{
+            background-color: rgb(228, 226, 226);
+        }
+        .search-box{
+            display: flex;
+            justify-content: center;
+        }
+        .check_applied{
+            pointer-events: none;  /* Disables click */
+            opacity: 0.5;
+        }
+        .job-item .total_applicants{
+            margin-top: 1rem;
+            background-color: #f8f9fa; /* Light gray */
+            color: #333; /* Dark text */
+            border: 1px solid #ddd;
+            padding: 5px;
+            border-radius: 5px;
+            /* font-weight: bold; */
+        }
+        .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 8px;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 8px 14px;
+    font-size: 16px;
+    text-decoration: none;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination a.active {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #0056b3;
+    font-weight: bold;
+}
+
+.pagination a:first-child, 
+.pagination a:last-child {
+    font-weight: bold;
+}
+
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1><a href="{% url 'user:user_dashboard' %}" style="text-decoration: none;color:white">User Dashboard</a></h1>
+        <ul>
+            <li><a href="{% url 'user:job_list' %}">Job Listings</a></li>
+            <li><a href="{% url 'user:applied' %}">My Applications</a></li>
+        </ul>
+    </nav>
+    
+    <div class="job-container">
+        <form method="get" action="{% url 'user:job_list' %}">
+            <div class="search-box">
+            <input type="text" name="search" placeholder="Search by Company, Location, or Skills" value="{{ request.GET.search }}" class="search-functionality">
+            <button type="submit" class="search-button"><i class="fa-solid fa-filter"></i></button>
+            </div>
+        </form>
+        {% for job in jobs %}
+        <div class="job-item">
+            {% if job.deadline_exceeded %}
+            <p style="background-color: #fff3cd; 
+color: #856404; text-align: center;">
+                💬 Oops! The application is closed. Check out other job openings!
+            </p>
+            {% endif %}
+            <h2>{{ job.Job_title }}</h2>
+            <p><i class="fas fa-building"></i> <strong>Company:</strong> {{ job.Company_name }}</p>
+            <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> {{ job.Job_location }}</p>
+            <p><i class="fas fa-briefcase"></i> <strong>Experience Level:</strong> {{ job.Experience_level }}</p>
+            <p><i class="fas fa-cogs"></i> <strong>Skills Required:</strong> {{ job.Skill_required }}</p>
+            <p><i class="fas fa-dollar-sign"></i> <strong>Salary Range:</strong> {{ job.Salary_range }}</p>
+            <p><i class="fas fa-calendar-day"></i> <strong>Posted On:</strong> {{ job.Job_post_date }}</p>
+            <div class="job-actions">
+                <button class="view-btn" onclick="location.href='{% url 'user:view_details' job_id=job.id %}'">View Details</button>
+                
+                {% if not job.applied_detail%}
+                {% if not job.deadline_exceeded%}
+            <button class="apply-btn" onclick="location.href='{% url 'user:apply_job' job_id=job.id %}'" >Apply</button>
+            {% else %}
+            <button class="apply-btn check_applied" onclick="location.href='{% url 'user:apply_job' job_id=job.id %}'" >Application closed</button>
+            {% endif %}
+            {% else %}
+            <button class="apply-btn check_applied" onclick="location.href='{% url 'user:apply_job' job_id=job.id %}'" >You have already applied to this job post</button>
+            
+            {% endif %}
+            </div>
+            
+                {% if job.count %}
+                <p class="total_applicants">Total Candidates Applied: <strong>{{ job.count }}</strong></p>
+                {% endif %}
+                
+        </div>
+        {% empty %}
+        <p>No jobs found.</p>
+        {% endfor %}
+        <div class="pagination">
+            {% if page > 1 %}
+                <a href="?page={{ page|add:-1 }}&search={{ search_term }}">Previous</a>
+            {% endif %}
+        
+            {% for i in ""|center:total_pages %}
+                <a href="?page={{ forloop.counter }}&search={{ search_term }}" 
+                   class="{% if forloop.counter == page %}active{% endif %}">
+                    {{ forloop.counter }}
+                </a>
+            {% endfor %}
+        
+            {% if page < total_pages %}
+                <a href="?page={{ page|add:1 }}&search={{ search_term }}">Next</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container">
+        <ul>
+            <li><p>📘 If already applied then wait for an update from us or from recruiter</p></li>
+            <li><p>⚠️ Repeatedly contacting the recruiter may leave a negative impression. Please be patient and wait for a response.</p></li>
+            <li><p>🚨 Job Scam Alert! A genuine recruiter will never ask for money. If someone demands payment for a job, it’s likely a scam. Be cautious and verify before sharing any details.</p></li>
+        </ul>
+    
+    </div>
+    <footer class="footer">
+        <p>&copy; 2024 User Dashboard. All rights reserved.</p>
+    </footer>
+</body>
+</html>

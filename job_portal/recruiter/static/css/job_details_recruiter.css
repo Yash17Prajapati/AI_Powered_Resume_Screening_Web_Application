@@ -1,0 +1,178 @@
+/* Job Container */
+.job-container {
+    border: none;
+    border-radius: 15px;
+    margin: 30px auto;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
+    animation: fadeIn 0.6s ease-in-out;
+    width: 80%;
+}
+
+/* Last Updated Date */
+.job-updated-date {
+    background: linear-gradient(135deg, #ff9800, #ff5722);
+    color: white;
+    padding: 8px 15px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Job Details Card */
+.job-details {
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+    font-family: 'Poppins', sans-serif;
+    color: #2c3e50;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+/* Close Button */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: rgba(255, 69, 58, 0.9);
+    color: white;
+    border: none;
+    font-size: 18px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn:hover {
+    background: rgb(255, 69, 58);
+    transform: scale(1.1);
+}
+
+/* Job Title */
+.job-details h2 {
+    font-size: 26px;
+    text-align: center;
+    color: #ffcc00;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+    padding-bottom: 12px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Job Info Styling - Ensuring Text Starts from Same Line */
+.job-details p {
+    font-size: 16px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    margin: 10px 0;
+    display: flex;
+    flex-wrap: wrap; /* Ensure items wrap inside */
+    align-items: flex-start; /* Align items to the top */
+    transition: all 0.3s ease-in-out;
+    color: #2c3e50;
+    font-weight: 500;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+
+    /* Ensure long words break correctly */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    
+}
+
+/* Ensuring Icon and Text are Properly Aligned */
+.job-details p i {
+    min-width: 25px; /* Fixes alignment */
+    text-align: center;
+    margin-right: 12px;
+    color: #ffcc00;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+/* Ensure Consistent Alignment for All Text */
+.job-details strong {
+    min-width: 120px; /* Adjust as needed */
+    display: inline-block;
+    font-weight: bold;
+    color: #34495e;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+/* Hover Effect */
+.job-details p:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.02);
+}
+
+/* Apply Button */
+.apply-btn {
+    background: linear-gradient(135deg, #009688, #00796B);
+    color: white;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto 0;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.2);
+}
+
+.apply-btn:hover {
+    background: #00695C;
+    transform: translateY(-3px);
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .job-container {
+        width: 90%;
+        padding: 20px;
+    }
+    .close-btn {
+        font-size: 16px;
+        padding: 6px 10px;
+    }
+    .apply-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+    .job-details strong {
+        min-width: 130px;
+    }
+}

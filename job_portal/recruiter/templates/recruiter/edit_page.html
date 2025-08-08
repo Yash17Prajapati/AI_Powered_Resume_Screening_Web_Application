@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Job Post</title>
+    <link rel="stylesheet" href="{% static 'css/post_job_form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<style>
+    .container {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        background: #fff;
+        padding: 40px;
+        border-radius: 0;
+        box-shadow: none;
+        box-sizing: border-box;
+    }
+</style>
+<body>
+    <nav class="navbar">
+        <h1><a href="{% url 'recruiter:recruiter_dashboard' %}" style="text-decoration: none; color:white">Recruiter Dashboard</a></h1>
+        <ul>
+            <li><a href="{% url 'recruiter:job_posted' %}">Job Posted</a></li>
+            <li><a href="{% url 'recruiter:post_job' %}">Post new jobs</a></li>
+            <li><a href="{% url 'recruiter:result_jobs' %}">Results</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h1>Update This Job Post</h1>
+        <form  method="post" id="job-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="job-title">Job Title</label>
+                <input type="text" id="job-title" value="{{ job_data.Job_title }}" name="job_title" placeholder="e.g., Software Engineer" required>
+            </div>
+
+            <div class="form-group">
+                <label for="job-description">Job Description</label>
+                <textarea id="job-description" name="job_description" placeholder="Describe the job responsibilities..." rows="5" required>{{ job_data.Job_description }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="company-name">Company Name</label>
+                <input type="text" value="{{ job_data.Company_name }}" id="company-name" name="company_name" placeholder="e.g., ABC Corp" required>
+            </div>
+
+            <div class="form-group">
+                <label for="job-location">Job Location</label>
+                <input type="text" value="{{ job_data.Job_location }}" id="job-location" name="job_location" placeholder="e.g., New York, NY or Remote" required>
+            </div>
+
+            <div class="form-group">
+                <label for="employment-type">Employment Type</label>
+                <select id="employment-type" name="employment_type" required>
+                    {% for type in employment_types %}
+                    <option value="{{ type }}" {% if type == job_data.Employment_type %}selected{% endif %}>{{ type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="experience-level">Experience Level</label>
+                <select id="experience-level" name="experience_level" required>
+                    {% for level in experience_levels %}
+            <option value="{{ level }}" {% if level == job_data.Experience_level %}selected{% endif %}>{{ level }}</option>
+        {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="salary-range">Salary Range (Optional)</label>
+                <input type="text" value="{{ job_data.Salary_range }}" id="salary-range" name="salary_range" placeholder="e.g., $50,000 - $70,000 or Negotiable">
+            </div>
+
+            <div class="form-group">
+                <label for="skills-required">Skills Required</label>
+                <input type="text" value="{{ job_data.Skill_required}}" id="skills-required" name="skills_required" placeholder="e.g., Python, Teamwork, Communication" required>
+            </div>
+
+            <div class="form-group">
+                <label for="education">Educational Qualification</label>
+                <input type="text" value="{{ job_data.Education_qualify }}" id="education" name="education" placeholder="e.g., Bachelor’s degree" required>
+            </div>
+
+            <div class="form-group">
+                <label for="application-deadline">Application Deadline</label>
+                <input type="date" value="{{ job_data.Application_deadline }}" id="application-deadline" name="application_deadline" required>
+            </div>
+
+            <div class="form-group">
+                <label for="job-category">Job Category</label>
+                <select id="job-category" name="job_category" required>
+                    {% for category in job_categories %}
+            <option value="{{ category }}" {% if category == job_data.Job_category %}selected{% endif %}>{{ category }}</option>
+        {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="vacancies">Vacancies Available</label>
+                <input type="number" value="{{ job_data.Vacancy }}" id="vacancies" name="vacancies" min="1" placeholder="e.g., 5" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contact-info">Contact Information</label>
+                <input type="email" value="{{ job_data.Contact_info }}" id="contact-info" name="contact_info" placeholder="e.g., recruiter@example.com" required>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit">Update Post</button>
+                <button onclick="location.href='{% url 'recruiter:job_posted' %}'" id="cancel-button">Cancel</button>
+            </div>
+        </form>
+</div>
+<footer class="footer">
+    <p>&copy; 2024 Recruiter Dashboard. All rights reserved.</p>
+</footer>
+</body>
+</html>

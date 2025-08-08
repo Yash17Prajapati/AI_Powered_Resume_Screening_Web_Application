@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Applications</title>
+    <link rel="stylesheet" href="{% static 'css/user.css' %}">
+    <style>
+       
+
+        .content {
+            padding: 20px;
+        }
+
+        .confirmation-message {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .job-details-box {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .job-details-box h3 {
+            margin-top: 0;
+        }
+
+        .job-details-box p {
+            margin: 10px 0;
+        }
+
+        .job-details-box .job-info {
+            font-weight: bold;
+        }
+
+        .track-status-btn {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 1rem;
+            /* position: absolute; */
+            /* bottom: 20px; */
+            /* left: 20px; Positioning the button at the left bottom corner */
+        }
+
+        .track-status-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .lst-button{
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+        .view-uploaded-doc{
+            color: #6aaef7;
+            text-decoration: none;
+        }
+        .view-uploaded-doc:hover{
+            color: #0851a0;
+        }
+        .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 8px;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 8px 14px;
+    font-size: 16px;
+    text-decoration: none;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.pagination a.active {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #0056b3;
+    font-weight: bold;
+}
+
+.pagination a:first-child, 
+.pagination a:last-child {
+    font-weight: bold;
+}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1><a href="{% url 'user:user_dashboard' %}" style="text-decoration: none;color:white">User Dashboard</a></h1>
+        <ul>
+            <li><a href="{% url 'user:job_list' %}">Job Listings</a></li>
+            <li><a href="{% url 'user:applied' %}">My Applications</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <!-- Confirmation Message -->
+        <div class="confirmation-message">
+            <h1>🎯 View Your Submitted Applications Here</h1>
+        </div>
+
+        <!-- Job Details Box -->
+        {% for job in jobs %}
+        <div class="job-details-box">
+            <h3>Job Application Details</h3>
+            <p><span class="job-info">Job Title:</span> {{ job.job_detail.Job_title }}</p>
+            <p><span class="job-info">Company Name:</span> {{ job.job_detail.Company_name }}</p>
+            <p><span class="job-info">Location:</span> {{ job.job_detail.Job_location }}</p>
+            <p><span class="job-info">Applied On:</span> {{ job.Date }}</p>
+            <p><span class="job-info">Your Uploaded Document:</span><a href="{% url 'user:document_details' job_id=job.job_apply_id doc_id=job.resume_details %}" class="view-uploaded-doc"> Click here to view your uploaded document</a></p>
+            <!-- Track Application Status Button -->
+            <button class="track-status-btn" onclick="location.href='{% url 'user:application_Status' job_id=job.job_apply_id %}'">Check Application Status </button>
+            <button class="track-status-btn" onclick="withdraw('{{ job.job_apply_id }}')">Withdraw Your Application</button>
+        </div>
+        {% endfor %}
+        <div class="pagination">
+            {% if page > 1 %}
+                <a href="?page={{ page|add:-1 }}">Previous</a>
+            {% endif %}
+        
+            {% for i in ""|center:total_pages %}
+                <a href="?page={{ forloop.counter }}" 
+                   class="{% if forloop.counter == page %}active{% endif %}">
+                    {{ forloop.counter }}
+                </a>
+            {% endfor %}
+        
+            {% if page < total_pages %}
+                <a href="?page={{ page|add:1 }}">Next</a>
+            {% endif %}
+        </div>
+        <!-- Next Steps -->
+        <div class="next-steps">
+            <h2>What's Next?</h2>
+            <ul>
+                <li>💼 The recruiter will review your application and contact you if you are shortlisted.</li>
+                <li>📧 Keep an eye on your email for updates about this job application.</li>
+                <li>🕒 You can check the status of your application anytime by clicking on "Track Application Status".</li>
+            </ul>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="actions">
+            <button class="lst-button" onclick="location.href='{% url 'user:user_dashboard' %}'">Go to Dashboard</button>
+            <button class="lst-button" onclick="location.href='{% url 'user:job_list' %}'">Explore More Jobs</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 User Dashboard. All rights reserved.</p>
+    </footer>
+    <script>
+        function withdraw(job_id) {
+            // Show confirmation dialog
+            var confirmation = confirm("Are you sure you want to withdraw your application for this job position?");
+            if (confirmation) {
+                // If user clicks OK, proceed with deletion
+                window.location.href = "/user/With-Draw-Application/" + job_id + "/";  // Redirect to withdraw view
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <h1><a href="{% url 'recruiter:recruiter_dashboard' %}" style="text-decoration: none;color:white">Recruiter Dashboard</a></h1>
+        <ul>
+            <li><a href="{% url 'recruiter:job_posted' %}">Job Posted</a></li>
+            <li><a href="{% url 'recruiter:post_job' %}">Post new jobs</a></li>
+            <li><a href="{% url 'recruiter:result_jobs' %}">Results</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <section class="hero">
+            <h2>Welcome to Your Recruiter Dashboard</h2>
+            <p>Manage your job postings, track results, and connect with top talent efficiently.</p>
+            
+        </section>
+
+        <section class="features">
+            <h3>Why Use This Dashboard?</h3>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h4>Streamlined Management</h4>
+                    <p>Keep all your job postings organized in one place.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Detailed Analytics</h4>
+                    <p>Get insights on candidate applications and hiring trends.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Easy Collaboration</h4>
+                    <p>Work with your team to find the best candidates faster.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h3>What Recruiters Say</h3>
+            <blockquote>
+                "This dashboard has transformed the way we manage hiring. It's a game-changer!" - HR Manager
+            </blockquote>
+            <blockquote>
+                "Highly intuitive and efficient. We found our top candidates quickly." - Recruitment Lead
+            </blockquote>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Recruiter Dashboard. All rights reserved.</p>
+    </footer>
+</body>
+</html>

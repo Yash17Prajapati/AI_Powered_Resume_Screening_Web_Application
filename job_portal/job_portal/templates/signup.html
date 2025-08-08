@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'css/loginsignup.css' %}">
+    <style>
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+        }
+        .alert.success {
+            color: #155724;
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .alert.error {
+            color: #721c24;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Sign Up</h1>
+
+        <!-- Success and Error Messages -->
+        <!-- {% if success_message %}
+        <div class="alert success">
+            {{ success_message }}
+        </div>
+        {% endif %}
+
+        {% if error_message %}
+        <div class="alert error">
+            {{ error_message }}
+        </div>
+        {% endif %} -->
+        {% if ispresent %}
+        <form>
+            {% csrf_token %}
+            <label for="email">Email:</label>
+            <input type="email" value={{ email }} id="email" name="email" readonly>
+
+            <label for="username">Username:</label>
+            <input type="text" value={{ username }} id="username" name="username" readonly>
+
+            <label for="password">Password:</label>
+            <input type="password" value={{ password }} id="password" name="password" readonly>
+
+            <label for="role">I am a:</label>
+            <select id="role"  name="role" readonly>
+                <option value="" disabled selected>-- Select Role --</option>
+                {% if role == 'candidate' %}
+                <option value="candidate" selected>Candidate</option>
+                {% else %}
+                <option value="recruiter" selected>Recruiter</option>
+                {% endif %}
+            </select>
+            
+            <p style="color: red;">* This user/recruiter details already exist</p>
+            <p style="color: red;">Please click on the login button</p>
+        </form>
+        {% else %}
+        <form method="post" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="role">I am a:</label>
+            <select id="role" name="role" required>
+                <option value="" disabled selected>-- Select Role --</option>
+                <option value="candidate">Candidate</option>
+                <option value="recruiter">Recruiter</option>
+            </select>
+
+            <button type="submit">Sign Up</button>
+        </form>
+        {% endif %}
+        <div class="login-link">
+            <p>Already have an account? <a href="{% url 'login' %}" style="text-decoration: none;">Login here</a></p>
+        </div>
+    </div>
+
+    <!-- Inline CSS for Alert Styles -->
+    
+</body>
+</html>

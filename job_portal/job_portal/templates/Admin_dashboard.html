@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    {% comment %} <link rel="stylesheet" href="{% static 'css/loginsignup.css' %}"> {% endcomment %}
+    <style>
+        body{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+        .footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 0.5rem 0;
+            width: 100%;
+            margin-top: auto; /* Push footer to the bottom after content */
+        }
+        .admin-container {
+            width: 90%;
+            margin: auto;
+            text-align: center;
+        }
+        
+        .user-iframe {
+            width: 75%;
+            min-height:300px;
+            {% comment %} height: 300px; {% endcomment %}
+            {% comment %} border: 2px solid black; {% endcomment %}
+            border-radius:5px;
+            margin-top: 10px;
+        }
+        
+        /* Table Styles */
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+        
+        .user-table th, .user-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .user-table th {
+            background-color: #f4f4f4;
+        }
+        
+        /* Message Button */
+        .message-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        
+        /* Excel File Icon */
+        .excel-icon {
+            font-size: 22px;
+            text-decoration: none;
+        }
+        .admin-navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #2c3e50;
+            padding: 15px 20px;
+            color: white;
+            width:100%;
+            box-sizing:border-box;
+        }
+        .admin-footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            box-sizing:border-box;
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            padding: 20px;
+            background: #f9f9f9;
+        }
+        
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Table Headers */
+        th {
+            background: #2c3e50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        
+        /* Table Rows */
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        /* Hover Effect */
+        tr:hover {
+            background: #f1f1f1;
+        }
+        
+        /* Icons Styling */
+        .icon {
+            font-size: 18px;
+            cursor: pointer;
+            color: #007bff;
+            transition: 0.3s;
+        }
+        
+        .icon:hover {
+            color: #0056b3;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            table {
+                font-size: 14px;
+            }
+        
+            .icon {
+                font-size: 16px;
+            }
+        }
+                
+    </style>
+</head>
+<body>
+    <nav class="admin-navbar">
+        <div class="logo">
+            <h2>Admin Portal</h2>
+        </div>
+        
+    </nav>
+    <div class="admin-container">
+        <h2>User Management</h2>
+        <iframe 
+        src="{% url 'candidate_details' %}" 
+        class="user-iframe" scrolling="no">
+    </iframe>
+    </div>
+    <footer class="admin-footer">
+        <p>&copy; 2024 Admin Dashboard. All rights reserved.</p>
+    </footer>
+</body>
+</html>

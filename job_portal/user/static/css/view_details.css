@@ -1,0 +1,52 @@
+.job-container {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.job-updated-date {
+    background-color: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.job-details {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.close-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
+}
+
+.job-icons {
+    margin: 10px 0;
+}
+
+.apply-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    justify-content: flex-end;
+}
+
+.apply-btn:hover {
+    background-color: #45a049;
+}
